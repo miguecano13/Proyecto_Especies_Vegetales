@@ -7,3 +7,6 @@ def hello(request):
 
 def about(request):
     return HttpResponse("<h2>Acerca de mi empresa</h2>")
+
+def index(request):
+    return render(request, 'index/mapa.html')
