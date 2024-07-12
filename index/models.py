@@ -141,7 +141,7 @@ class Plants(models.Model):
     plant_image = models.CharField(max_length=100)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'plants'
 
 
