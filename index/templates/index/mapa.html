@@ -17,16 +17,9 @@
 
   <body>
     <h1>Prueba Mapa interactivo Especies Vegetales</h1>
-
-    <select name="select-location" id="select-location">
-      <option value="9.938754825564125, -75.15197753906251">
-        Ingresa un lugar
-      </option>
-      <option value="9.718860103072823,-75.12082099914552">
-        El carmen de bolivar
-      </option>
-      <option value="10.031352817724542,-74.97576713562013">El Guamo</option>
-    </select>
+    <!-- Barra de búsqueda -->
+    <input type="text" id="plant-search" placeholder="Ingresa el nombre de la planta" />
+    <button onclick="searchPlant()">Buscar</button>
 
     <div id="map"></div>
     <!-- Make sure you put this AFTER Leaflet's CSS -->
@@ -36,6 +29,7 @@
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
       crossorigin=""
     ></script>
+
     <script src="{% static 'index/main.js' %}"></script>
   </body>
 </html>

@@ -11,18 +11,24 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 var poligon = L.polygon(LatIng, { color: "blue" }).addTo(map);
 
 //Aplicamos la busqueda de las zonas por medio de las cordenas tomando en cuenta el valor ingresado en el Input
-//Mas adelante se hara la busqueda asociandola con la base de datos
-document
-  .getElementById("select-location")
-  .addEventListener("change", function (e) {
-    let coords = e.target.value.split(",");
-    if(e.target.value == "9.938754825564125, -75.15197753906251"){
-        let init_coords = e.target.value.split(",");
-        map.flyTo(init_coords, 9);
-    }else{
-        map.flyTo(coords, 14);
-    } 
-  });
+function searchPlant() {
+  const plantName = document.getElementById('plant-search').value;
+  fetch(`/plant-location/?plant_name=${plantName}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.plant_location) {
+        console.log(`Location: ${data.plant_location}`);
+        const [lat, lng] = data.plant_location.split(',').map(Number);
+        map.flyTo([lat, lng], 14);
+        L.marker([lat, lng]).addTo(map)
+          .bindPopup(`<b>${plantName}</b><br />Ubicación encontrada.`)
+          .openPopup();
+      } else {
+        console.error('Planta no encontrada');
+      }
+    })
+    .catch(error => console.error('Error:', error));
+}
 
 // Añadir un evento de clic al mapa
 map.on("click", function (e) {
