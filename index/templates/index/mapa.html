@@ -22,13 +22,14 @@
     <button onclick="searchPlant()">Buscar</button>
 
     <div id="map"></div>
+    <div id="info-popup" class="info-popup"></div>
     <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script src="{% static 'index/Lat_Polygon.js' %}"></script>
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin=""
-    ></script>
+      crossorigin="">
+    </script>
 
     <script src="{% static 'index/main.js' %}"></script>
   </body>
