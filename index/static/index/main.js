@@ -27,10 +27,11 @@ function searchPlant() {
     .then(data => {
       if (data.plant_location) {
         console.log(`Location: ${data.plant_location}`);
+        const image = data.plant_image;
         const [lat, lng] = data.plant_location.split(',').map(Number);
         map.flyTo([lat, lng], 14);
         const marker = L.marker([lat, lng]).addTo(map)
-          .bindPopup(`<b>${plantName}</b><br />Ubicación encontrada.`)
+          .bindPopup(`<div id="${data.plant_id}"><b>${plantName}</b><br /> <img src="../../static/images/${image}" alt="${plantName}" style="width:100px; height:100px;"></div>`)
           .openPopup();
         marker.plantId = data.plant_id;
 
@@ -38,12 +39,19 @@ function searchPlant() {
           showPlantDetails(marker.plantId);
         });
 
-        const popup = document.querySelector('.leaflet-popup-content-wrapper');
-        if (popup) {
+        // var popup = document.querySelector('.leaflet-popup-content-wrapper');
+        // if (popup) {
+        //   popup.addEventListener('click', function() {
+        //     showPlantDetails(marker.plantId);
+        //   });
+        // }
+        document.querySelectorAll('.leaflet-popup-content-wrapper').forEach(popup => {
+          popup.setAttribute('data-plant-id', marker.plantId);
           popup.addEventListener('click', function() {
-            showPlantDetails(marker.plantId);
+            const plantId = this.getAttribute('data-plant-id');
+            showPlantDetails(plantId);
           });
-        }
+        });
       } else {
         console.error('Planta no encontrada');
       }
@@ -57,13 +65,17 @@ function showPlantDetails(plantId) {
     .then(data => {
       const infoPopup = document.getElementById('info-popup');
       infoPopup.innerHTML = `
-        <div>
-          <h3>${data.name}</h3>
-          <p>${data.description}</p>
-          <p>Location: ${data.location}</p>
-          <p>Estado: ${data.estado}</p>
-          <img src="${data.image}" alt="${data.name}" style="width:100px; height:100px;">
-          <button onclick="closeInfoPopup()">Close</button>
+        <div class="content-div-main">
+          <div>
+            <h3>${data.name}</h3>
+            <p>${data.description}</p>
+            <p>Ubicación: ${data.location}</p>
+            <p>Estado: ${data.estado}</p>
+            <button class="close-btn" onclick="closeInfoPopup()">Cerrar</button>
+          </div>
+          <div>
+            <img src="../../static/images/${data.image}" alt="${data.name}" style="width:100px; height:100px;">
+          </div>
         </div>
       `;
       infoPopup.style.display = 'block';

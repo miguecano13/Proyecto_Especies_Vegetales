@@ -14,6 +14,7 @@ def plant_location(request):
         plant = Plants.objects.get(plant_name=plant_name)
         data = {
             'plant_location': plant.plant_location,
+            'plant_image': plant.plant_image,
             'plant_id': plant.plant_id
         }
     except Plants.DoesNotExist:
