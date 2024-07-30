@@ -1,21 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Especies Vegetales</title>
 
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin=""
-    />
-    {% load  static %}
-    <link rel="stylesheet" href="{% static 'index/main.css' %}" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Especies Vegetales</title>
 
-  <body>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'index/main.css' %}" /> 
+</head>
+
+<body>
+  <main id="maincontent">
+    <div id="__next">
+      <div class="l-fullscreen-page">
+        <div class="c-header css-1bbee3b e1spekh70">
+          <div class="nav-row css-crjt9f e1yf9jog0">
+            <div class="nav-column css-67qqwg e1jmmrb10"><a class="logo" href="/"><img
+                  src="data:image/png;base64,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"
+                  alt="Global Forest Watch" width="76" height="76"></a>
+              <div class="nav">
+                <div class="fresnel-container fresnel-greaterThanOrEqual-medium nav-desktop">
+                  <ul class="c-header css-1g95hra eug8t9j0">
+                    <li class="nav-item"><a class="nav-link" href="/map/">Mapa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/dashboards/global/">Panel</a></li>
+                    <li class="nav-item">
+                      <div class="nested css-1m699dl efhhckp0">
+                        <div><button type="button" class="nav-link" aria-label="Help">Ayuda<svg width="32" height="32"
+                              viewBox="0 0 32 32" class="icon-arrow">
+                              <path
+                                d="M31.68 8.593L30.077 6.99c-.214-.214-.46-.321-.738-.321s-.523.107-.737.321L16 19.591 3.399 6.99c-.214-.214-.46-.321-.738-.321s-.524.107-.738.321L.32 8.593c-.214.214-.321.46-.321.738s.107.524.321.737L15.262 25.01c.214.214.46.321.738.321s.523-.107.737-.321L31.68 10.068c.214-.214.32-.46.32-.737s-.106-.524-.32-.738z">
+                              </path>
+                            </svg></button></div>
+                      </div>
+                    </li>
+                    <li class="nav-item">
+                      <div class="nested css-1m699dl efhhckp0">
+                        <div><button type="button" class="nav-link" aria-label="About">Acerca de<svg width="32"
+                              height="32" viewBox="0 0 32 32" class="icon-arrow">
+                              <path
+                                d="M31.68 8.593L30.077 6.99c-.214-.214-.46-.321-.738-.321s-.523.107-.737.321L16 19.591 3.399 6.99c-.214-.214-.46-.321-.738-.321s-.524.107-.738.321L.32 8.593c-.214.214-.321.46-.321.738s.107.524.321.737L15.262 25.01c.214.214.46.321.738.321s.523-.107.737-.321L31.68 10.068c.214-.214.32-.46.32-.737s-.106-.524-.32-.738z">
+                              </path>
+                            </svg></button></div>
+                      </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="/blog/">Blog</a></li>
+                    <li class="nav-item other-tools">
+                      <div class="nav-link">
+                        <div class="nested css-1m699dl efhhckp0">
+                          <div><button type="button" class="nav-link" aria-label="Other Tools">Otras herramientas<svg
+                                width="32" height="32" viewBox="0 0 32 32" class="icon-arrow">
+                                <path
+                                  d="M31.68 8.593L30.077 6.99c-.214-.214-.46-.321-.738-.321s-.523.107-.737.321L16 19.591 3.399 6.99c-.214-.214-.46-.321-.738-.321s-.524.107-.738.321L.32 8.593c-.214.214-.321.46-.321.738s.107.524.321.737L15.262 25.01c.214.214.46.321.738.321s.523-.107.737-.321L31.68 10.068c.214-.214.32-.46.32-.737s-.106-.524-.32-.738z">
+                                </path>
+                              </svg></button></div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  <div class="css-shtpb9 ej7vw770">
+                    <div class="nav-item lang-selector">
+                      <div class="nested notranslate css-ycmiiv efhhckp0">
+                        <div><button type="button" class="nav-link" aria-label="Español">Español<svg width="32"
+                              height="32" viewBox="0 0 32 32" class="icon-arrow">
+                              <path
+                                d="M31.68 8.593L30.077 6.99c-.214-.214-.46-.321-.738-.321s-.523.107-.737.321L16 19.591 3.399 6.99c-.214-.214-.46-.321-.738-.321s-.524.107-.738.321L.32 8.593c-.214.214-.321.46-.321.738s.107.524.321.737L15.262 25.01c.214.214.46.321.738.321s.523-.107.737-.321L31.68 10.068c.214-.214.32-.46.32-.737s-.106-.524-.32-.738z">
+                              </path>
+                            </svg></button></div>
+                      </div>
+                    </div>
+                    <div class="nav-item"><a class="nav-link" href="/search/">
+                        <div class="top-menu-icon"><svg width="28" height="27" viewBox="0 0 28 27" fill="none">
+                            <rect x="0.843" width="26.546" height="27" rx="13.273" fill="#9FBD4C"></rect>
+                            <path
+                              d="M16.68 17.657c-2.64 1.934-6.275 1.46-8.366-1.089-2.09-2.55-1.936-6.325.353-8.687 2.29-2.36 5.95-2.52 8.424-.363 2.473 2.155 2.931 5.904 1.056 8.626l3.241 3.343L19.921 21l-3.242-3.343zm-.674-2.208c1.621-1.672 1.621-4.383 0-6.055a4.064 4.064 0 00-5.872 0c-1.62 1.671-1.62 4.382 0 6.055a4.063 4.063 0 005.872 0z"
+                              fill="#fff"></path>
+                          </svg></div>
+                      </a></div>
+                    <div class="nav-item"><button data-component-type="button-toggle-notifications-header">
+                        <div><svg width="37" height="40" viewBox="0 0 37 40" fill="none">
+                            <rect x="5.388" y="6.5" width="26.079" height="27" rx="13.039" fill="#9FBD4C"></rect>
+                            <path
+                              d="M24.199 22.447c-.427-.631-.695-1.342-.695-2.1v-1.5c0-2.479-1.532-4.342-3.9-4.831v-.6a.916.916 0 00-.916-.916h-.52a.916.916 0 00-.917.916v.6c-2.352.505-3.9 2.368-3.9 4.831v1.5c0 .758-.268 1.485-.694 2.1a1.526 1.526 0 00-.269.869v.126a1.55 1.55 0 001.547 1.547h8.985a1.55 1.55 0 001.547-1.547v-.126c0-.316-.095-.616-.268-.869zM18.436 27.5c.915 0 1.642-.742 1.657-1.658h-3.315c.016.916.742 1.658 1.658 1.658z"
+                              fill="#fff"></path>
+                            <circle cx="27.388" cy="11" r="4" fill="#E61D1D"></circle>
+                          </svg></div>
+                      </button></div>
+                    <div class="nav-item"><a class="nav-link" href="/my-gfw/">
+                        <div><svg width="28" height="27" viewBox="0 0 28 27" fill="none">
+                            <rect x="0.467" width="27.533" height="27" rx="13.5" fill="#9FBD4C"></rect>
+                            <path
+                              d="M20.153 17.306c-1.425-1.234-3.546-2.02-5.92-2.02-2.373 0-4.494.786-5.918 2.02L6.467 21H22l-1.847-3.694zm-5.929-3.257c1.877 0 3.398-1.802 3.398-4.024C17.622 7.801 16.101 6 14.224 6c-1.877 0-3.398 1.802-3.398 4.024 0 2.223 1.521 4.025 3.397 4.025h.001z"
+                              fill="#fff"></path>
+                          </svg></div>
+                      </a></div>
+                    <div class="fresnel-container fresnel-lessThan-medium nav-mobile"></div>
+                  </div>
+                </div>
+                <div class="fresnel-container fresnel-lessThan-medium nav-mobile"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="mainContentInit">
     <h1>Prueba Mapa interactivo Especies Vegetales</h1>
     <!-- Barra de búsqueda -->
     <input type="text" id="plant-search" placeholder="Ingresa el nombre de la planta" />
@@ -23,14 +116,14 @@
 
     <div id="map"></div>
     <div id="info-popup" class="info-popup"></div>
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="{% static 'index/Lat_Polygon.js' %}"></script>
-    <script
-      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin="">
+  </div>
+
+  <script src="{% static 'index/Lat_Polygon.js' %}"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="">
     </script>
 
-    <script src="{% static 'index/main.js' %}"></script>
-  </body>
+  <script src="{% static 'index/main.js' %}"></script>
+</body>
+
 </html>

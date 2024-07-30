@@ -39,12 +39,6 @@ function searchPlant() {
           showPlantDetails(marker.plantId);
         });
 
-        // var popup = document.querySelector('.leaflet-popup-content-wrapper');
-        // if (popup) {
-        //   popup.addEventListener('click', function() {
-        //     showPlantDetails(marker.plantId);
-        //   });
-        // }
         document.querySelectorAll('.leaflet-popup-content-wrapper').forEach(popup => {
           popup.setAttribute('data-plant-id', marker.plantId);
           popup.addEventListener('click', function() {
@@ -56,7 +50,10 @@ function searchPlant() {
         console.error('Planta no encontrada');
       }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Hubo un error al buscar la planta. Por favor, intenta de nuevo.');
+    });
 }
 
 function showPlantDetails(plantId) {
